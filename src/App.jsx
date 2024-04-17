@@ -24,7 +24,6 @@ const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [isEditMode, setIsEditMode] = useState(false);
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
@@ -33,6 +32,19 @@ export default function App() {
 
   const handleCreateNewNode = () => {
     console.log("Creating a new node!");
+    setNodes((prev) => [
+      ...prev,
+      {
+        id: `node-new-${prev.length}`,
+        data: {
+          label: "Untitled",
+        },
+        position: {
+          x: 100,
+          y: 100,
+        },
+      },
+    ]);
   };
 
   return (
